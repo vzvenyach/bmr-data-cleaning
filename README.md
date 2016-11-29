@@ -2,7 +2,7 @@ README
 
 ## Setup
 
-To set up, the original data is stored in the `BMR` folder.
+Clone the repository. To set up, the original data is stored in the `BMR` folder. To run the script, you'll need an API key from [api.data.gov](https://api.data.gov/). The only external dependencies should be [pandas](pandas.pydata.org) and [requests](http://docs.python-requests.org/en/master/).
 
 ## Running `clear_bmr.py`
 
