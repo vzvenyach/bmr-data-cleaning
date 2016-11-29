@@ -1,6 +1,9 @@
 import re
 import pandas as pd
 from .get_code_from_usda_api import get_code_from_usda_api
+import lib.check_db as checkdb
+import pdb
+import time
 
 def cleaned_code(row, food_name):
     """
@@ -33,10 +36,21 @@ def cleaned_code(row, food_name):
 
     # If the Food Code is 6 digits or more, or is blank, search USDA SR and Branded Database for the closest match based on the text of the food description
     elif len(stripped_food_id) > 5 or len(stripped_food_id) < 1:
-        print("Getting %s, %s from USDA API" % (stripped_food_id, row["Food_Item"]))
 
-        # Access the get_code_from_usda_api function
-        res = get_code_from_usda_api(row["Food_Item"])
+        # check if the code is *known*, if so, dump to sqlite
+        # pdb.set_trace()
+        res = checkdb.check_database_for_id(stripped_food_id, row["Food_Item"])
+        if res is None:
+            print("Getting %s, %s from USDA API" % (stripped_food_id, row["Food_Item"]))
+            # Access the get_code_from_usda_api function
+            # pdb.set_trace()
+
+            time.sleep(4)
+            res = get_code_from_usda_api(row["Food_Item"])
+            # if stripped_food_id != "":
+            checkdb.insert_code_into_usda_api(stripped_food_id, row["Food_Item"], res)
+            # pdb.set_trace()
+
         return pd.Series({"cleaned_code": res[0], "description": res[1]})
 
     return pd.Series({"cleaned_code": '{0:05d}'.format(int(stripped_food_id)), "description": row["Food_Item"]})

@@ -18,8 +18,10 @@ def get_code_from_usda_api(query):
 
     # Check for errors. If there's no match, return an "UNKNOWN" result
     if ("errors" in res) or ("error" in res):
+        if ('error' in res and res['error']['code'] == "OVER_RATE_LIMIT"):
+            print("RATE LIMIT ERROR!!!!")
+            exit(1)
         return ("UNKNOWN", "UNKNOWN")
-    pdb.set_trace()
 
     number = res['list']['item'][0]['ndbno']
     usda_description = res['list']['item'][0]['name']
