@@ -4,7 +4,7 @@ README
 
 Clone the repository. To set up, the original data is stored in the `BMR` folder. To run the script, you'll need an API key from [api.data.gov](https://api.data.gov/). The only external dependencies should be [pandas](pandas.pydata.org) and [requests](http://docs.python-requests.org/en/master/).
 
-## Running `clear_bmr.py`
+## Running `clean_bmr.py`
 
 To run the program for each file, run `python3 clean_bmr.py [FILENAME]`. This then calls the `clean_bmr` function. That function takes the filename, goes through each line of the BMR file, and returns a *cleaned* BMR file and saves that new file to the `results` folder.
 
