@@ -1,7 +1,7 @@
 .env
 env/*
 **/__pycache__/**
-BMR/**
-results/**
+BMR/*.xls*
+results/*.csv
 .DS_Store
 **/*.pyc
